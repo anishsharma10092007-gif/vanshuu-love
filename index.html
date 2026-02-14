@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>For My Vanshuuu ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:black;
+color:white;
+text-align:center;
+overflow:hidden;
+}
+
+/* STAR BACKGROUND */
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+}
+
+/* PASSWORD SCREEN */
+#passwordScreen{
+position:fixed;
+width:100%;
+height:100%;
+background:black;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+input{
+padding:10px;
+border-radius:20px;
+border:none;
+width:250px;
+text-align:center;
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:20px;
+margin:10px;
+cursor:pointer;
+}
+
+#mainContent{
+display:none;
+padding:20px;
+overflow-y:auto;
+height:100vh;
+}
+
+.gallery img{
+width:90%;
+max-width:300px;
+margin:15px;
+border-radius:20px;
+box-shadow:0 0 20px pink;
+transition:0.5s;
+}
+
+.gallery img:hover{
+transform:scale(1.05);
+}
+
+.slideshow{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:black;
+display:none;
+justify-content:center;
+align-items:center;
+z-index:20;
+}
+
+.slideshow img{
+width:90%;
+max-width:400px;
+border-radius:20px;
+}
+
+#proposal{
+position:fixed;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.95);
+display:none;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:30;
+font-size:28px;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+
+<div id="passwordScreen">
+<h2>Enter Secret Password 💌</h2>
+<input type="password" id="passInput">
+<button onclick="checkPass()">Unlock ❤️</button>
+<p id="error"></p>
+</div>
+
+<div id="mainContent">
+
+<h1>Happy Valentine’s Day My Vanshuuu ❤️</h1>
+<p id="loveDays"></p>
+
+<button onclick="startSurprise()">Start Our Story 💖</button>
+<button onclick="startSlideshow()">Cinematic Mode 🎥</button>
+
+<div id="surprise" style="display:none;">
+<p id="typingText"></p>
+
+<div class="gallery">
+<img src="photo1.jpg">
+<img src="photo2.jpg">
+<img src="photo3.jpg">
+<img src="photo4.jpg">
+<img src="photo5.jpg">
+<img src="photo6.jpg">
+</div>
+
+<br>
+<button onclick="openProposal()">Special Question 💍</button>
+</div>
+</div>
+
+<div class="slideshow" id="slideshow">
+<img id="slideImg">
+</div>
+
+<div id="proposal">
+<h2>Will You Stay With Me Forever? 💍❤️</h2>
+<button onclick="yesForever()">YES ❤️</button>
+<button onclick="noMove(this)">NO 😜</button>
+</div>
+
+<audio autoplay loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6c6b5e7b7e.mp3?filename=romantic-background-112194.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+/* PASSWORD */
+function checkPass(){
+if(document.getElementById("passInput").value==="me anish ki bacchi hu"){
+document.getElementById("passwordScreen").style.display="none";
+document.getElementById("mainContent").style.display="block";
+
+/* VOICE INTRO */
+var msg=new SpeechSynthesisUtterance("Hi Vanshuuu. Happy Valentines Day. This is our special world.");
+speechSynthesis.speak(msg);
+}
+else{
+document.getElementById("error").innerHTML="Wrong Password 😜";
+}
+}
+
+/* LOVE DAYS */
+var startDate=new Date("December 11, 2024");
+var today=new Date();
+var diffDays=Math.floor((today-startDate)/(1000*60*60*24));
+document.getElementById("loveDays").innerHTML=
+"We have been together for "+diffDays+" beautiful days ❤️";
+
+/* TYPING STORY */
+var text="It started on 10 December... On 11 December 2024 we became us ❤️ \
+Auditorium day... your tears... my first hand hold... \
+You supported me when I had nothing... \
+You are my peace, my happiness, my forever Vanshuuu 💖";
+var i=0;
+function typeWriter(){
+if(i<text.length){
+document.getElementById("typingText").innerHTML+=text.charAt(i);
+i++;
+setTimeout(typeWriter,40);
+}
+}
+
+function startSurprise(){
+document.getElementById("surprise").style.display="block";
+typeWriter();
+}
+
+/* SLIDESHOW */
+var images=["photo1.jpg","photo2.jpg","photo3.jpg","photo4.jpg","photo5.jpg","photo6.jpg"];
+var index=0;
+function startSlideshow(){
+var slide=document.getElementById("slideshow");
+slide.style.display="flex";
+var img=document.getElementById("slideImg");
+setInterval(function(){
+img.src=images[index];
+index=(index+1)%images.length;
+},2000);
+setTimeout(()=>slide.style.display="none",12000);
+}
+
+/* PROPOSAL */
+function openProposal(){
+document.getElementById("proposal").style.display="flex";
+}
+
+function yesForever(){
+alert("Forever Together ❤️");
+startFireworks();
+}
+
+function noMove(btn){
+btn.style.position="absolute";
+btn.style.left=Math.random()*80+"%";
+btn.style.top=Math.random()*80+"%";
+}
+
+/* FIREWORKS */
+function startFireworks(){
+for(let i=0;i<60;i++){
+let d=document.createElement("div");
+d.style.position="fixed";
+d.style.width="6px";
+d.style.height="6px";
+d.style.background="hsl("+Math.random()*360+",100%,50%)";
+d.style.borderRadius="50%";
+d.style.left=Math.random()*100+"%";
+d.style.top=Math.random()*100+"%";
+document.body.appendChild(d);
+setTimeout(()=>d.remove(),2000);
+}
+}
+
+/* STAR SKY */
+var canvas=document.getElementById("stars");
+var ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+var stars=[];
+for(let i=0;i<200;i++){
+stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2});
+}
+
+function drawStars(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="white";
+stars.forEach(s=>{
+ctx.beginPath();
+ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+ctx.fill();
+});
+requestAnimationFrame(drawStars);
+}
+drawStars();
+
+</script>
+
+</body>
+</html>
